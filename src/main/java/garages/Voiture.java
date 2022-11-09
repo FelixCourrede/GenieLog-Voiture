@@ -6,7 +6,7 @@ import java.util.*;
 public class Voiture {
 
 	private final String immatriculation;
-	private final List<Stationnement> myStationnements = new LinkedList<>();
+	private List<Stationnement> myStationnements = new ArrayList<>();
 
 	public Voiture(String i) {
 		if (null == i) {
@@ -27,11 +27,18 @@ public class Voiture {
 	 * @param g le garage où la voiture va stationner
 	 * @throws java.lang.Exception Si déjà dans un garage
 	 */
-	public void entreAuGarage(Garage g) throws Exception {
-		// Et si la voiture est déjà dans un garage ?
+	public void entreAuGarage(Garage g) {
+		Stationnement Snew = new Stationnement(this,g);
+		if (myStationnements.size()==0){
+			myStationnements.add(Snew);
+			return;
+		}
+		Stationnement S = myStationnements.get(myStationnements.size()-1);
+		if (S.getFin()==null) {
+			throw new UnsupportedOperationException("La voiture est déja dans un garage");
 
-		Stationnement s = new Stationnement(this, g);
-		myStationnements.add(s);
+		}
+		myStationnements.add(Snew);
 	}
 
 	/**
@@ -40,19 +47,23 @@ public class Voiture {
 	 *
 	 * @throws java.lang.Exception si la voiture n'est pas dans un garage
 	 */
+
 	public void sortDuGarage() throws Exception {
-		throw new UnsupportedOperationException("Pas encore implémenté");
-		// TODO: Implémenter cette méthode
-		// Trouver le dernier stationnement de la voiture
-		// Terminer ce stationnement
-	}
+		Stationnement S = myStationnements.get(myStationnements.size()-1);
+		if (S.getFin()==null) {
+			S.terminer();
+			myStationnements.set(myStationnements.size()-1,S);
+		}
+		throw new UnsupportedOperationException("La voiture n'est pas dans un garage");
 
 	/**
 	 * @return l'ensemble des garages visités par cette voiture
 	 */
 	public Set<Garage> garagesVisites() {
-		// TODO: Implémenter cette méthode
-		throw new UnsupportedOperationException("Pas encore implémenté");
+		ArrayList Garage = new ArrayList();
+		for (int k=0; k<=myStationnements.size();k++){
+
+		}
 	}
 
 	/**
