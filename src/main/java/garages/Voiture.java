@@ -49,30 +49,30 @@ public class Voiture {
 	 */
 
 	public void sortDuGarage() throws Exception {
-		Stationnement S = myStationnements.get(myStationnements.size()-1);
-		if (S.getFin()==null) {
+		Stationnement S = myStationnements.get(myStationnements.size() - 1);
+		if (S.getFin() == null) {
 			S.terminer();
-			myStationnements.set(myStationnements.size()-1,S);
+			myStationnements.set(myStationnements.size() - 1, S);
 		}
 		throw new UnsupportedOperationException("La voiture n'est pas dans un garage");
-
-	/**
-	 * @return l'ensemble des garages visités par cette voiture
-	 */
+	}
 	public Set<Garage> garagesVisites() {
-		ArrayList Garage = new ArrayList();
+		Set<Garage> Garages = new HashSet<Garage>();
 		for (int k=0; k<=myStationnements.size();k++){
-
+			Garages.add((myStationnements.get(k).getGarage()));
 		}
+		return(Garages);
 	}
 
 	/**
 	 * @return vrai si la voiture est dans un garage, faux sinon
 	 */
 	public boolean estDansUnGarage() {
-		// TODO: Implémenter cette méthode
-		throw new UnsupportedOperationException("Pas encore implémenté");
-		// Vrai si le dernier stationnement est en cours
+		Stationnement S = myStationnements.get(myStationnements.size() - 1);
+		if (S.getFin() == null) {
+			return(true);
+		}
+		return(false);
 	}
 
 	/**
@@ -92,7 +92,21 @@ public class Voiture {
 	 * @param out l'endroit où imprimer (ex: System.out)
 	 */
 	public void imprimeStationnements(PrintStream out) {
-		// TODO: Implémenter cette méthode
+		for (int k=0; k<=myStationnements.size()-1;k++) {
+			Stationnement a = myStationnements.get(k);
+			System.out.println((a.getGarage()).getName() + a.getEntree() + a.getFin());
+			myStationnements.remove(k);
+			k -= 1;
+			for (int i = 0; i <= myStationnements.size(); i++) {
+				if (myStationnements.get(i).getGarage().getName() == a.getGarage().getName()) {
+					System.out.println(myStationnements.get(i).getEntree());
+					System.out.println(myStationnements.get(i).getFin());
+					myStationnements.remove(i);
+					i -= 1;
+				}
+			}
+
+		}
 		throw new UnsupportedOperationException("Pas encore implémenté");
 	}
 
