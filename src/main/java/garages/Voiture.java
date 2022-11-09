@@ -53,6 +53,7 @@ public class Voiture {
 		if (S.getFin() == null) {
 			S.terminer();
 			myStationnements.set(myStationnements.size() - 1, S);
+			return;
 		}
 		throw new UnsupportedOperationException("La voiture n'est pas dans un garage");
 	}
@@ -68,6 +69,8 @@ public class Voiture {
 	 * @return vrai si la voiture est dans un garage, faux sinon
 	 */
 	public boolean estDansUnGarage() {
+		if (myStationnements.size()==0){
+			return(false);}
 		Stationnement S = myStationnements.get(myStationnements.size() - 1);
 		if (S.getFin() == null) {
 			return(true);
@@ -92,22 +95,6 @@ public class Voiture {
 	 * @param out l'endroit où imprimer (ex: System.out)
 	 */
 	public void imprimeStationnements(PrintStream out) {
-		for (int k=0; k<=myStationnements.size()-1;k++) {
-			Stationnement a = myStationnements.get(k);
-			System.out.println((a.getGarage()).getName() + a.getEntree() + a.getFin());
-			myStationnements.remove(k);
-			k -= 1;
-			for (int i = 0; i <= myStationnements.size(); i++) {
-				if (myStationnements.get(i).getGarage().getName() == a.getGarage().getName()) {
-					System.out.println(myStationnements.get(i).getEntree());
-					System.out.println(myStationnements.get(i).getFin());
-					myStationnements.remove(i);
-					i -= 1;
-				}
-			}
-
-		}
-		throw new UnsupportedOperationException("Pas encore implémenté");
+		System.out.println(this.garagesVisites());
 	}
-
 }

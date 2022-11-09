@@ -28,7 +28,7 @@ public class Stationnement {
 		return entree;
 	}
 
-	public static Date getFin() {
+	public  Date getFin() {
 		return fin;
 	}
 
